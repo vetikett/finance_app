@@ -31,7 +31,7 @@ class Route {
             $controllerNamespace = "App\\Controllers\\".$controllerName;
             $action = $uri[2]."Action";
 
-            if( is_readable("app/Controllers/". $controllerName .".php") ) {
+            if( is_readable("app".DIRECTORY_SEPARATOR."Controllers".DIRECTORY_SEPARATOR."". $controllerName .".php") ) {
 
                 $controller = new $controllerNamespace();
 
@@ -62,7 +62,7 @@ class Route {
             $controllerNamespace = "App\\Controllers\\" . $controllerName;
             $action = "indexAction";
 
-            if (is_readable("app/Controllers/" . $controllerName . ".php")) {
+            if (is_readable("app".DIRECTORY_SEPARATOR."Controllers".DIRECTORY_SEPARATOR."" . $controllerName . ".php")) {
 
                 $controller = new $controllerNamespace();
 
@@ -83,14 +83,14 @@ class Route {
 
     // Defines the root directory.
     static public function defineRootPath() {
-        $relativeUrl = explode("/", getcwd());
+        $relativeUrl = explode(DIRECTORY_SEPARATOR, getcwd());
         $root_path = array_pop($relativeUrl);
         define('ROOT_PATH', $root_path);
     }
 
     // Parses the URI so that the first URI directory is the root directory for this project.
     static private function getRelativeUri($rawUri) {
-        $uri = explode("/", parse_url(trim(strtolower($rawUri), "/"), PHP_URL_PATH));
+        $uri = explode(DIRECTORY_SEPARATOR, parse_url(trim(strtolower($rawUri), "/"), PHP_URL_PATH));
         foreach ($uri as $key => $uriPiece) {
 
             if ($uriPiece == ROOT_PATH) {
