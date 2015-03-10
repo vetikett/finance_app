@@ -90,7 +90,7 @@ class Route {
 
     // Parses the URI so that the first URI directory is the root directory for this project.
     static private function getRelativeUri($rawUri) {
-        $uri = explode(DIRECTORY_SEPARATOR, parse_url(trim(strtolower($rawUri), "/"), PHP_URL_PATH));
+        $uri = explode("/", parse_url(trim(strtolower($rawUri), "/"), PHP_URL_PATH));
         foreach ($uri as $key => $uriPiece) {
 
             if ($uriPiece == ROOT_PATH) {
