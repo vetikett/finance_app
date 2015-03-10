@@ -4,7 +4,7 @@ use App\Db;
 use PDO;
 use Core\BaseClasses\View;
 
-class UsersController {
+class StocksController {
 
     // indexAction method will be triggered at
     // both example.com/users/index AND example.com/users
@@ -12,14 +12,14 @@ class UsersController {
     // an action for example "example.com/posts" just name is "indexAction".
 
     public function indexAction() {
-        return "Get all entities";
+        return View::render('stocks/index');
     }
 
     public function createAction() {
         return View::render('users/create');
     }
 
-    public function saveAction() {
+    public function buyAction() {
         return "Saves entity";
     }
 
