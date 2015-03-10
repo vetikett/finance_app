@@ -12,7 +12,15 @@ class StocksController {
     // an action for example "example.com/posts" just name is "indexAction".
 
     public function indexAction() {
-        return View::render('stocks/index');
+
+        $db = Db::get();
+        $showStm = $db->prepare('SELECT * FROM stocks JOIN users ON (users.id = stocks.user_id)WHERE user_id = 1');
+        //$showStm->bindParam(':user_id', $_SESSION["user_id"], PDO::PARAM_INT);
+        $showStm->execute();
+
+        $stocks = $showStm->fetchObject();
+
+        return View::render('stocks/index', compact('stocks'));
     }
 
     public function createAction() {
@@ -20,6 +28,16 @@ class StocksController {
     }
 
     public function buyAction() {
+        $db = Db::get();
+        $buyStm = $db->prepare('INSERT INTO stocks(user_id, name, cost, info, holding) VALUES (:user_id, :name, :cost, :info, :holding)');
+        $buyStm->bindParam(':user_id', $_SESSION["user_id"]), PDO::PARAM_INT;
+        $buyStm->bindParam(':name', $_POST["name"], PDO::PARAM_STR);
+        $buyStm->bindParam(':cost', $_POST["cost"], PDO::PARAM_INT);
+        $buyStm->bindParam(':info', $_POST["info"], PDO::PARAM_STR);
+        $buyStm->bindParam(':holding', $_POST["holding"], PDO::PARAM_INT);
+
+        $buyStm->execute();
+
         return "Saves entity";
     }
 
