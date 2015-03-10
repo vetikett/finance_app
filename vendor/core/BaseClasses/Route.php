@@ -31,7 +31,7 @@ class Route {
             $controllerNamespace = "App\\Controllers\\".$controllerName;
             $action = $uri[2]."Action";
 
-            if( is_readable("app".DIRECTORY_SEPARATOR."Controllers".DIRECTORY_SEPARATOR."". $controllerName .".php") ) {
+            if( is_readable("app".DIRECTORY_SEPARATOR."Controllers".DIRECTORY_SEPARATOR. $controllerName .".php") ) {
 
                 $controller = new $controllerNamespace();
 
@@ -62,7 +62,7 @@ class Route {
             $controllerNamespace = "App\\Controllers\\" . $controllerName;
             $action = "indexAction";
 
-            if (is_readable("app".DIRECTORY_SEPARATOR."Controllers".DIRECTORY_SEPARATOR."" . $controllerName . ".php")) {
+            if (is_readable("app".DIRECTORY_SEPARATOR."Controllers".DIRECTORY_SEPARATOR . $controllerName . ".php")) {
 
                 $controller = new $controllerNamespace();
 
