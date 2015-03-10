@@ -10,6 +10,6 @@ class View {
         }
 
 
-        require_once 'resources/views/'. $template .".php";
+        require_once('resources'.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR. $template .'.php');
     }
 }
