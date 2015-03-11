@@ -4,6 +4,7 @@ Options -Indexes
 
 RewriteEngine On
 
+RewriteCond %{REQUEST_URI} !(\.css|\.js|\.png|\.jpg|\.gif|robots\.txt)$ [NC]
 RewriteCond %{REQUEST_FILNAME} !-f
 RewriteCond %{REQUEST_FILNAME} !-d
 

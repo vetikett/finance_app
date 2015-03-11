@@ -1,12 +1,11 @@
-<div style>
-    <form action="users/save" method="post">
-        <label style="display: block;" for="email">
-            email
-            <input type="email"/>
-        </label>
-        <label style="display: block;" for="password">
-            password
-            <input type="password"/>
-        </label>
-    </form>
-</div>
+<html>
+<head>
+    <title>finance app</title>
+    <link rel="stylesheet" href="resources/css/main.css" type="text/css"/>
+
+</head>
+<body>
+<p class="test">hej</p>
+
+</body>
+</html>

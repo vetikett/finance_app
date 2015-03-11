@@ -1,2 +1,11 @@
-<h2>This is to the homepage</h2>
-<h3>It is HomeController and home() action that is responsible for this view</h3>
+<html>
+<head>
+    <title>finance app</title>
+    <link rel="stylesheet" href="resources/css/main.css" type="text/css"/>
+
+</head>
+<body>
+<p class="test">hej</p>
+
+</body>
+</html>
