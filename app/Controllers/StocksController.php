@@ -6,6 +6,7 @@ use Core\BaseClasses\View;
 
 class StocksController {
 
+
     // indexAction method will be triggered at
     // both example.com/users/index AND example.com/users
     // this convention is true for all controllers. So if you want
@@ -53,6 +54,7 @@ class StocksController {
         return View::render('users/show', compact('user'));
 
     }
+
 
     public function editAction($id) {
         return "Renders form to update entity with id: ". $id;

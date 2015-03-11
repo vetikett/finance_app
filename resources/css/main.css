@@ -1,3 +1,10 @@
-.test {
-    font-size: 60px;
+th {
+    font-size: 0px;
+}
+td {
+    border: 1px solid black;
+    padding: 10px;
+}
+table  {
+    border-collapse: collapse;
 }
