@@ -14,6 +14,7 @@ class StocksController {
 
     public function indexAction() {
 
+
         $db = Db::get();
         $showStm = $db->prepare('SELECT * FROM stocks JOIN users ON (users.id = stocks.user_id)WHERE user_id = 1');
         //$showStm->bindParam(':user_id', $_SESSION["user_id"], PDO::PARAM_INT);
