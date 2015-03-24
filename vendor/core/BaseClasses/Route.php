@@ -48,7 +48,7 @@ class Route {
 
                 } elseif ( method_exists($controller, $action) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
-                    $controller->$action($_POST['id']);
+                    $controller->$action();
 
                 } else {
                     require_once '404.php';
