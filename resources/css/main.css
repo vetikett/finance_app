@@ -9,5 +9,50 @@ table  {
     border-collapse: collapse;
 }
 
-.table-section {
+.container-fluid {
+    padding: 0 60px;
+}
+.search {
+    width: 500px;
+    margin: 30px auto 0;
+
+}
+.text-search {
+    width: 500px;
+    height: 34px;
+}
+
+.submit-search {
+    width: 500px;
+    margin: 0 auto;
+}
+
+.form-inline {
+    max-width: 350px;
+    margin-right: 0;
+}
+
+.form-inline p {
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+.form-inline input[type='number'] {
+    width: 67px;
+    padding: 4px;
+}
+
+.form-inline input[type='submit'] {
+    padding: 4px;
+    margin-right: 10px;
+    width: 67px;
+}
+
+.buy {
+    width: 67px;
+}
+
+.first-form {
+    border-bottom: 1px solid #5CB85C;
 }

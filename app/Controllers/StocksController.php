@@ -31,8 +31,8 @@ class StocksController {
 
     public function buyAction() {
         $db = Db::get();
-        $buyStm = $db->prepare('INSERT INTO stocks(user_id, name, cost, info, holding) VALUES (:user_id, :name, :cost, :info, :holding)');
-        $buyStm->bindParam(':user_id', $_SESSION["user_id"], PDO::PARAM_INT);
+        $buyStm = $db->prepare('INSERT INTO stocks(user_id, symbol, cost, total, quantity) VALUES (:user_id, :symbol, :cost, :total, :quantity)');
+        $buyStm->bindParam(':user_id', $_SESSION['user']->id, PDO::PARAM_INT);
         $buyStm->bindParam(':name', $_POST["name"], PDO::PARAM_STR);
         $buyStm->bindParam(':cost', $_POST["cost"], PDO::PARAM_INT);
         $buyStm->bindParam(':info', $_POST["info"], PDO::PARAM_STR);

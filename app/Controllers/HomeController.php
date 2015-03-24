@@ -30,6 +30,10 @@ class HomeController {
         return View::render('home', compact('data'));
     }
 
+    public function watchAction() {
+
+    }
+
     private function searchStocks($search_input) {
         $search = $search_input;
 

@@ -1,102 +1,108 @@
 <html>
 <head>
     <title>finance app</title>
+    <link rel="stylesheet" href="resources/css/bootstrap.css" type="text/css"/>
     <link rel="stylesheet" href="resources/css/main.css" type="text/css"/>
-
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 </head>
 <body>
-<form method="post">
-    <label for="search_ipnut">search</label>
-    <input type="text" name="search_input"/>
-    <input type="submit" name="search" value="search stock"/>
-</form>
+<div class="container-fluid">
+    <h1 class="text-center">Finance App</h1>
+    <form class="search" method="post">
+        <input class="text-search" type="text" name="search_input"/>
+        <input class="submit-search btn btn-primary" type="submit" name="search" value="search stock"/>
+    </form>
 
-<?php
+    <?php
 
-if ( $data['stocks'] != [] ) {
-    echo '<h2>Search results</h2><table class="table-section">'.
-        '<thead><tr>'.
-        '<td>Name</td>'.
-        '<td>Symbol</td>'.
-        '<td>LastPrice</td>'.
-        '<td>Change</td>'.
-        '<td>ChangePercent</td>'.
-        '<td>Time</td>'.
-        '<td>MSDate</td>'.
-        '<td>MarketCap</td>'.
-        '<td>Volume</td>'.
-        '<td>ChangeYTD</td>'.
-        '<td>ChangePercentYTD</td>'.
-        '<td>High</td>'.
-        '<td>Low</td>'.
-        '<td>Open</td>'.
-        '</tr></thead>'.
-        '<tbody>';
-    foreach($data['stocks'] as $stock) {
-        echo '<tr>'.
-            '<td>'.$stock->Name.'</td>'.
-            '<td>'.$stock->Symbol.'</td>'.
-            '<td>'.$stock->LastPrice.'</td>'.
-            '<td>'.round($stock->Change, 4).'</td>'.
-            '<td>'.round($stock->ChangePercent, 4).'</td>'.
-            '<td>'.Date('H:i:s', time($stock->Timestamp)).'</td>'.
-            '<td>'.$stock->MSDate.'</td>'.
-            '<td>'.$stock->MarketCap.'</td>'.
-            '<td>'.$stock->Volume.'</td>'.
-            '<td>'.$stock->ChangeYTD.'</td>'.
-            '<td>'.round($stock->ChangePercentYTD, 4).'</td>'.
-            '<td>'.$stock->High.'</td>'.
-            '<td>'.$stock->Low.'</td>'.
-            '<td>'.$stock->Open.'</td>'.
-            '</tr>';
+    if ( $data['stocks'] != [] ) {
+        echo '<h2>Search results</h2><table class="table table-bordered table-striped table-section">'.
+            '<thead><tr>'.
+                '<td class="form-section">Purchase And Monitor Stocks</td>'.
+                '<td>Name</td>'.
+                '<td>Symbol</td>'.
+                '<td>Price</td>'.
+                '<td>Volume</td>'.
+                '<td>Change</td>'.
+                '<td>Time</td>'.
+            '</tr></thead>'.
+            '<tbody>';
+        foreach($data['stocks'] as $stock) {
+            echo '<tr>'.
+                    '<td class="form-section">'.
+                        '<form class="form-inline first-form">'.
+                        '<input type="hidden" name="name" value="'.$stock->Name.'">'.
+                        '<input type="hidden" name="symbol" value="'.$stock->Symbol.'">'.
+                        '<input type="hidden" name="purchased-price" value="'.$stock->LastPrice.'">'.
+                        '<input class="btn btn-success buy" name="buy" type="submit" value="Buy">'.
+                        '<input class="btn btn-success quantity" name="quantity" type="number" value="1" min="1" max="'.$stock->Volume.'">'.
+                        '<p>Total: $<span class="total-amount">'.$stock->LastPrice.'</span></p>'.
+                        '</form>'.
+                        '<form class="form-inline"><input class="btn btn-danger" type="submit" value="Watch"></form>'.
+                    '</td>'.
+                    '<td>'.$stock->Name.'</td>'.
+                    '<td>'.$stock->Symbol.'</td>'.
+                    '<td>'.$stock->LastPrice.'</td>'.
+                    '<td>'.$stock->Volume.'</td>'.
+                    '<td>'.round($stock->ChangePercent, 2).' %</td>'.
+                    '<td>'.Date('H:i:s', time($stock->Timestamp)).'</td>'.
+                '</tr>';
+        }
+        echo '</tbody>'.
+            '</table>';
     }
-    echo '</tbody>'.
-        '</table>';
-}
 
-if ($data['monitoredStocks'] != []) {
+    if ($data['monitoredStocks'] != []) {
 
-   echo '<h2>Monitored Stocks</h2><table class="table-section">'.
-       '<thead><tr>'.
-            '<td>Name</td>'.
-            '<td>Symbol</td>'.
-            '<td>LastPrice</td>'.
-            '<td>Change</td>'.
-            '<td>ChangePercent</td>'.
-            '<td>Time</td>'.
-            '<td>MSDate</td>'.
-            '<td>MarketCap</td>'.
-            '<td>Volume</td>'.
-            '<td>ChangeYTD</td>'.
-            '<td>ChangePercentYTD</td>'.
-            '<td>High</td>'.
-            '<td>Low</td>'.
-            '<td>Open</td>'.
-        '</tr></thead>'.
-        '<tbody>';
-    foreach($data['monitoredStocks'] as $stock) {
-        echo '<tr>'.
-                '<td>'.$stock->Name.'</td>'.
-                '<td>'.$stock->Symbol.'</td>'.
-                '<td>'.$stock->LastPrice.'</td>'.
-                '<td>'.round($stock->Change, 4).'</td>'.
-                '<td>'.round($stock->ChangePercent, 4).'</td>'.
-                '<td>'.Date('H:i:s', time($stock->Timestamp)).'</td>'.
-                '<td>'.$stock->MSDate.'</td>'.
-                '<td>'.$stock->MarketCap.'</td>'.
-                '<td>'.$stock->Volume.'</td>'.
-                '<td>'.$stock->ChangeYTD.'</td>'.
-                '<td>'.round($stock->ChangePercentYTD, 4).'</td>'.
-                '<td>'.$stock->High.'</td>'.
-                '<td>'.$stock->Low.'</td>'.
-                '<td>'.$stock->Open.'</td>'.
-            '</tr>';
+       echo '<h2>Monitored Stocks</h2><table class="table table-bordered table-striped table-section">'.
+           '<thead><tr>'.
+                '<td class="form-section">Purchase And Monitor Stocks</td>'.
+                '<td>Name</td>'.
+                '<td>Symbol</td>'.
+                '<td>Price</td>'.
+                '<td>Volume</td>'.
+                '<td>Change</td>'.
+                '<td>Time</td>'.
+            '</tr></thead>'.
+            '<tbody>';
+        foreach($data['monitoredStocks'] as $stock) {
+            echo '<tr>'.
+                    '<td class="form-section">'.
+                        '<form class="form-inline first-form">'.
+                            '<input type="hidden" name="name" value="'.$stock->Name.'">'.
+                            '<input type="hidden" name="symbol" value="'.$stock->Symbol.'">'.
+                            '<input type="hidden" name="purchased-price" value="'.$stock->LastPrice.'">'.
+                            '<input class="btn btn-success buy" name="buy" type="submit" value="Buy">'.
+                            '<input class="btn btn-success quantity" name="quantity" type="number" value="1" min="1" max="'.$stock->Volume.'">'.
+                            '<p>Total: $<span class="total-amount">'.$stock->LastPrice.'</span></p>'.
+                        '</form>'.
+                        '<form class="form-inline"><input class="btn btn-danger" type="submit" value="Unwatch"></form>'.
+                    '</td>'.
+                    '<td>'.$stock->Name.'</td>'.
+                    '<td>'.$stock->Symbol.'</td>'.
+                    '<td>'.$stock->LastPrice.'</td>'.
+                    '<td>'.$stock->Volume.'</td>'.
+                    '<td>'.round($stock->ChangePercent, 2).' %</td>'.
+                    '<td>'.Date('H:i:s', time($stock->Timestamp)).'</td>'.
+                '</tr>';
+        }
+        echo '</tbody>'.
+            '</table>';
     }
-    echo '</tbody>'.
-        '</table>';
-}
-?>
+    ?>
 
+</div>
 
+<script>
+    $(document).ready(function() {
+        $('.quantity').click(function() {
+            $quantity = $(this).val();
+            $price = $(this).prev().prev().val();
+            $amount = $(this).next().children('span');
+            $total = $price * $quantity;
+            $amount.text($total.toFixed(2));
+        });
+    });
+</script>
 </body>
 </html>

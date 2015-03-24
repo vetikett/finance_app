@@ -1,7 +1,9 @@
 <html>
 <head>
     <title>finance app</title>
+    <link rel="stylesheet" href="resources/css/bootstrap.css" type="text/css"/>
     <link rel="stylesheet" href="resources/css/main.css" type="text/css"/>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 </head>
     <body>
         <p><?php echo($stocks->first_name . " " . $stocks->last_name) ?> </p>
