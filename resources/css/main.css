@@ -76,6 +76,19 @@ table  {
     box-shadow: 4px 4px 2px black;
 }
 
+.error-box {
+    width: 500px;
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 20px;
+    background-color: #d43f3a;
+}
+
+.error-msg {
+    margin: 0 auto;
+    font-size: 14pt;
+    color: #ffffff;
+}
 .user-name {
     font-size: 20px;
     margin-left: 170px;

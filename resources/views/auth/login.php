@@ -62,7 +62,9 @@
         <?php
         if(isset($errors)){
         ?>
-            <p><?php echo($errors)?></p>
+            <div class="error-box">
+                <p class="error-msg"><?php echo($errors)?></p>
+            </div>
 
         <?php
         }
