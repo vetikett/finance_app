@@ -6,6 +6,32 @@
     <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 </head>
 <body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Lorenum</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="../finance_app">Buy Stocks<span class="sr-only">(current)</span></a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><p>Wallet: <?php echo var_dump($_SESSION['user']) ?></p></li>
+                <li><a href="auth/logout">Logout</a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
 
 <div class="container-fluid">
 
@@ -21,7 +47,7 @@
 
         echo '<h2>Stocks You Own</h2><table class="table table-bordered table-striped table-section">'.
             '<thead><tr>'.
-            '<td class="form-section">Sell And Unwatch Stocks</td>'.
+            '<td class="form-section">Sell Stocks</td>'.
             '<td>Name</td>'.
             '<td>Symbol</td>'.
             '<td>Price</td>'.
@@ -38,11 +64,10 @@
                 '<input type="hidden" name="total_quantity" value="'.$stock->Quantity.'">'.
                 '<input type="hidden" name="symbol" value="'.$stock->Symbol.'">'.
                 '<input type="hidden" name="cost" value="'.round($stock->LastPrice).'">'.
-                '<input class="btn btn-success buy" name="sell" type="submit" value="Sell">'.
+                '<input class="btn btn-danger buy" name="sell" type="submit" value="Sell">'.
                 '<input class="btn btn-success quantity" name="quantity" type="number" value="1" min="1" max="'.$stock->Quantity.'">'.
                 '<p>Total: $<span class="total-amount">'.round($stock->LastPrice).'</span></p>'.
                 '</form>'.
-                '<form method="post" class="form-inline"><input class="btn btn-danger" type="submit" value="Unwatch"></form>'.
                 '</td>'.
                 '<td>'.$stock->Name.'</td>'.
                 '<td>'.$stock->Symbol.'</td>'.

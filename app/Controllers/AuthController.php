@@ -57,7 +57,6 @@ class AuthController {
         if($loginStm->rowCount() == 1){
             $row = $loginStm->fetch(PDO::FETCH_ASSOC);
             if(password_verify($_POST['password'], $row['password'])){
-            session_start();
             $_SESSION["auth"] = "loggedIn";
             $_SESSION["user"] = $loginStm->fetchObject();
             header("location:../");

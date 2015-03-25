@@ -6,6 +6,32 @@
     <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 </head>
 <body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Lorenum</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="stocks">Sell Stocks<span class="sr-only">(current)</span></a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Logout</a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
 
 <div class="container-fluid">
 
@@ -25,7 +51,7 @@
     if ( $data['stocks'] != [] ) {
         echo '<h2>Search results</h2><table class="table table-bordered table-striped table-section">'.
             '<thead><tr>'.
-                '<td class="form-section">Purchase And Watch Stocks</td>'.
+                '<td class="form-section">Purchase Stocks</td>'.
                 '<td>Name</td>'.
                 '<td>Symbol</td>'.
                 '<td>Price</td>'.
@@ -45,7 +71,6 @@
                         '<input class="btn btn-success quantity" name="quantity" type="number" value="1" min="1" max="'.$stock->Volume.'">'.
                         '<p>Total: $<span class="total-amount">'.round($stock->LastPrice).'</span></p>'.
                         '</form>'.
-                        '<form method="post" class="form-inline"><input class="btn btn-danger" type="submit" value="Watch"></form>'.
                     '</td>'.
                     '<td>'.$stock->Name.'</td>'.
                     '<td>'.$stock->Symbol.'</td>'.
@@ -61,9 +86,9 @@
 
     if ($data['monitoredStocks'] != []) {
 
-       echo '<h2>Monitored Stocks</h2><table class="table table-bordered table-striped table-section">'.
+       echo '<h2>Popular Stocks</h2><table class="table table-bordered table-striped table-section">'.
            '<thead><tr>'.
-                '<td class="form-section">Purchase And Monitor Stocks</td>'.
+                '<td class="form-section">Purchase Stocks</td>'.
                 '<td>Name</td>'.
                 '<td>Symbol</td>'.
                 '<td>Price</td>'.
@@ -83,7 +108,6 @@
                             '<input class="btn btn-success quantity" name="quantity" type="number" value="1" min="1" max="'.$stock->Volume.'">'.
                             '<p>Total: $<span class="total-amount">'.round($stock->LastPrice).'</span></p>'.
                         '</form>'.
-                        '<form method="post" class="form-inline"><input class="btn btn-danger" type="submit" value="Unwatch"></form>'.
                     '</td>'.
                     '<td>'.$stock->Name.'</td>'.
                     '<td>'.$stock->Symbol.'</td>'.
