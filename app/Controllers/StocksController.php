@@ -14,16 +14,20 @@ class StocksController {
 
     public function indexAction() {
 
+        if ($_SESSION["auth"] != "loggedIn") {
+            header('location: auth');
+        }else{
+            $db = Db::get();
+            $showStm = $db->prepare('SELECT * FROM stocks JOIN users ON (users.id = stocks.user_id)WHERE user_id = 1');
+            //$showStm->bindParam(':user_id', $_SESSION["user_id"], PDO::PARAM_INT);
+            $showStm->execute();
+            $stocks = $showStm->fetchAll(PDO::FETCH_OBJ);
+            $stocks = $this->getStocksBySymbol($stocks);
+            $data['stocks'] = $stocks;
 
-        $db = Db::get();
-        $showStm = $db->prepare('SELECT * FROM stocks JOIN users ON (users.id = stocks.user_id)WHERE user_id = 1');
-        //$showStm->bindParam(':user_id', $_SESSION["user_id"], PDO::PARAM_INT);
-        $showStm->execute();
-        $stocks = $showStm->fetchAll(PDO::FETCH_OBJ);
-        $stocks = $this->getStocksBySymbol($stocks);
-        $data['stocks'] = $stocks;
+            return View::render('stocks/index', compact('stocks'));
+        }
 
-        return View::render('stocks/index', compact('stocks'));
     }
 
     public function createAction() {
@@ -100,7 +104,7 @@ class StocksController {
             }
         }
 
-        
+
 
         $walletStm = $db->prepare('UPDATE users
                                    SET wallet');

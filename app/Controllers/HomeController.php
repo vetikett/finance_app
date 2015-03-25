@@ -17,17 +17,22 @@ class HomeController {
 
     public function home() {
 
-        $data = [];
-        $data['stocks'] = [];
-        $data['monitoredStocks'] = $this->monitoredStocks;
-        if ( isset($_POST['search']) ) {
-            $stocks = $this->searchStocks($_POST['search_input']);
-            $data['stocks'] = $stocks;
+        if ($_SESSION["auth"] != "loggedIn") {
+            header('location: auth');
+        }else{
+            $data = [];
+            $data['stocks'] = [];
+            $data['monitoredStocks'] = $this->monitoredStocks;
+            if ( isset($_POST['search']) ) {
+                $stocks = $this->searchStocks($_POST['search_input']);
+                $data['stocks'] = $stocks;
+            }
+
+
+
+            return View::render('home', compact('data'));
         }
 
-
-
-        return View::render('home', compact('data'));
     }
 
     public function watchAction() {
