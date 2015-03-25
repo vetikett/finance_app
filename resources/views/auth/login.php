@@ -50,7 +50,7 @@
         <?php
         if(isset($errors)){
         ?>
-            <p><?php var_dump($errors)?></p>
+            <p><?php echo($errors)?></p>
 
         <?php
         }

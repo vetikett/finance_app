@@ -6,7 +6,7 @@ use Core\BaseClasses\View;
 
 class AuthController {
 
-    public $errors = array();
+    public $errors;
 
     // indexAction method will be triggered at
     // both example.com/users/index AND example.com/users
@@ -15,10 +15,9 @@ class AuthController {
 
     public function indexAction() {
 
-        $errors = $_SESSION["errors"];
-        unset($_SESSION["errors"]);
 
-        if(count($errors) > 0){
+        if(isset($_SESSION["errors"])){
+            $errors = $_SESSION["errors"];
             return View::render('auth/login', compact("errors"));
         }
         return View::render('auth/login');
@@ -40,7 +39,8 @@ class AuthController {
 
         }
         else{
-            $_SESSION["errors"] = $this->errors;
+
+            $_SESSION['errors'] = $this->errors;
             header("location:../auth");
         }
     }
@@ -57,7 +57,6 @@ class AuthController {
         if($loginStm->rowCount() == 1){
             $row = $loginStm->fetch(PDO::FETCH_ASSOC);
             if(password_verify($_POST['password'], $row['password'])){
-            session_start();
             $_SESSION["auth"] = "loggedIn";
             $_SESSION["user"] = $loginStm->fetchObject();
             header("location:../");
@@ -75,19 +74,19 @@ class AuthController {
 
     private function validator ($email, $pass1, $pass2, $first_name, $last_name){
         if( strlen($pass1) < 6  ) {
-            $this-> errors[] = " Your password has to be at least six characters long";
+            $this->errors = " Your password has to be at least six characters long";
             return false;
         }
         if(empty($first_name) && empty($last_name) && empty($email) && empty($pass1)){
-            $this-> errors[] = "You have to fill in all fields";
+            $this->errors = "You have to fill in all fields";
             return false;
         }
         if(($pass1 != $pass2)) {
-            $this-> errors[] = "Your password need to match";
+            $this->errors = "Your password need to match";
             return false;
         }
         if(! filter_var($email, FILTER_VALIDATE_EMAIL)){
-            $this-> errors[]= "Invalid email";
+            $this->errors = "Invalid email";
             return false;
         }
         else{
