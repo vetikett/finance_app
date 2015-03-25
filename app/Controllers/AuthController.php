@@ -15,6 +15,12 @@ class AuthController {
 
     public function indexAction() {
 
+        $errors = $_SESSION["errors"];
+        unset($_SESSION["errors"]);
+
+        if(count($errors) > 0){
+            return View::render('auth/login', compact("errors"));
+        }
         return View::render('auth/login');
     }
 
@@ -32,17 +38,11 @@ class AuthController {
             $registerStm->execute();
             $this->loginAction();
 
-
         }
         else{
-            $errors = $this-> errors;
-            if(isset($errors)){
-                foreach ($errors as $error){
-                    echo $error;
-                }
-            }
+            $_SESSION["errors"] = $this->errors;
+            header("location:../auth");
         }
-
     }
 
     public function loginAction() {
