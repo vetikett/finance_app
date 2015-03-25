@@ -75,3 +75,9 @@ table  {
     padding: 20px;
     box-shadow: 4px 4px 2px black;
 }
+
+.user-name {
+    font-size: 20px;
+    margin-left: 170px;
+}
+

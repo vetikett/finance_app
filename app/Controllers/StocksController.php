@@ -17,9 +17,10 @@ class StocksController {
         if ($_SESSION["auth"] != "loggedIn") {
             header('location: auth');
         }else{
+            $user_id = (int)$_SESSION['user']['id'];
             $db = Db::get();
-            $showStm = $db->prepare('SELECT * FROM stocks JOIN users ON (users.id = stocks.user_id)WHERE user_id = 1');
-            //$showStm->bindParam(':user_id', $_SESSION["user_id"], PDO::PARAM_INT);
+            $showStm = $db->prepare('SELECT * FROM stocks JOIN users ON (users.id = stocks.user_id)WHERE stocks.user_id = :user_id');
+            $showStm->bindParam(':user_id', $user_id, PDO::PARAM_INT);
             $showStm->execute();
             $stocks = $showStm->fetchAll(PDO::FETCH_OBJ);
             $stocks = $this->getStocksBySymbol($stocks);
@@ -36,7 +37,6 @@ class StocksController {
 
     public function buyAction() {
 
-        $user_id = 1;
         $total = $_POST["cost"] * $_POST["quantity"];
 
         $db = Db::get();
@@ -44,7 +44,7 @@ class StocksController {
         $stm = $db->prepare('SELECT * FROM stocks
                       WHERE symbol = :symbol AND user_id = :user_id');
         $stm->bindParam(':symbol', $_POST["symbol"], PDO::PARAM_STR);
-        $stm->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $stm->bindParam(':user_id', $_SESSION["user"]["id"], PDO::PARAM_INT);
         $stm->execute();
         $stmResult = $stm->fetchAll(PDO::FETCH_OBJ);
         if (count($stmResult) === 1) {
@@ -55,20 +55,38 @@ class StocksController {
                                        WHERE symbol = :symbol AND user_id = :user_id');
             $updateStm->bindParam(':quantity', $totalQuantity, PDO::PARAM_INT);
             $updateStm->bindParam(':symbol', $_POST["symbol"], PDO::PARAM_STR);
-            $updateStm->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+            $updateStm->bindParam(':user_id', $_SESSION["user"]["id"], PDO::PARAM_INT);
 
             if ($updateStm->execute()) {
+                $walletUser = (int)$_SESSION['user']['id'];
+                $totalWallet = $_SESSION['user']['wallet'] - $total;
+                $walletStm = $db->prepare('UPDATE users
+                                           SET wallet = :totalWallet
+                                           WHERE users.id = :user_id');
+                $walletStm->bindParam(':user_id', $walletUser, PDO::PARAM_INT);
+                $walletStm->bindParam(':totalWallet', $totalWallet, PDO::PARAM_INT);
+                $walletStm->execute();
+                $_SESSION['user']['wallet'] = $totalWallet;
                 $_SESSION['flash'] = 'You bought stocks for a total of $'.$total;
                 header('Location: ../');
             }
         }else {
             $newQuantity = (int)$_POST["quantity"];
             $buyStm = $db->prepare('INSERT INTO stocks (user_id, symbol, quantity) VALUES (:user_id, :symbol, :quantity)');
-            $buyStm->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+            $buyStm->bindParam(':user_id', $_SESSION["user"]["id"], PDO::PARAM_INT);
             $buyStm->bindParam(':symbol', $_POST["symbol"], PDO::PARAM_STR);
             $buyStm->bindParam(':quantity', $newQuantity, PDO::PARAM_INT);
 
             if ($buyStm->execute()) {
+                $walletUser = (int)$_SESSION['user']['id'];
+                $totalWallet = $_SESSION['user']['wallet'] - $total;
+                $walletStm = $db->prepare('UPDATE users
+                                           SET wallet = :totalWallet
+                                           WHERE users.id = :user_id');
+                $walletStm->bindParam(':user_id', $walletUser, PDO::PARAM_INT);
+                $walletStm->bindParam(':totalWallet', $totalWallet, PDO::PARAM_INT);
+                $walletStm->execute();
+                $_SESSION['user']['wallet'] = $totalWallet;
                 $_SESSION['flash'] = 'You bought stocks for a total of $'.$total;
                 header('Location: ../');
             }
@@ -77,7 +95,6 @@ class StocksController {
     }
 
     public function sellAction() {
-        $user_id = 1;
         $total = $_POST["cost"] * $_POST["quantity"];
 
         $newQuantity = $_POST['total_quantity'] - $_POST["quantity"];
@@ -86,8 +103,17 @@ class StocksController {
             $stm = $db->prepare('DELETE FROM stocks
                              WHERE symbol = :symbol AND user_id = :user_id');
             $stm->bindParam(':symbol',$_POST["symbol"], PDO::PARAM_STR);
-            $stm->bindParam(':user_id',$user_id, PDO::PARAM_INT);
+            $stm->bindParam(':user_id',$_SESSION["user"]["id"], PDO::PARAM_INT);
             if ($stm->execute()) {
+                $walletUser = (int)$_SESSION['user']['id'];
+                $totalWallet = $_SESSION['user']['wallet'] + $total;
+                $walletStm = $db->prepare('UPDATE users
+                                           SET wallet = :totalWallet
+                                           WHERE users.id = :user_id');
+                $walletStm->bindParam(':user_id', $walletUser, PDO::PARAM_INT);
+                $walletStm->bindParam(':totalWallet', $totalWallet, PDO::PARAM_INT);
+                $walletStm->execute();
+                $_SESSION['user']['wallet'] = $totalWallet;
                 $_SESSION['flash'] = 'You sold stocks for a total of $'.$total;
                 header('Location: ../stocks');
             }
@@ -97,8 +123,17 @@ class StocksController {
                              WHERE symbol = :symbol AND user_id = :user_id');
             $stm->bindParam(':quantity',$newQuantity, PDO::PARAM_INT);
             $stm->bindParam(':symbol',$_POST["symbol"], PDO::PARAM_STR);
-            $stm->bindParam(':user_id',$user_id, PDO::PARAM_INT);
+            $stm->bindParam(':user_id',$_SESSION["user"]["id"], PDO::PARAM_INT);
             if ($stm->execute()) {
+                $walletUser = (int)$_SESSION['user']['id'];
+                $totalWallet = $_SESSION['user']['wallet'] + $total;
+                $walletStm = $db->prepare('UPDATE users
+                                           SET wallet = :totalWallet
+                                           WHERE users.id = :user_id');
+                $walletStm->bindParam(':user_id', $walletUser, PDO::PARAM_INT);
+                $walletStm->bindParam(':totalWallet', $totalWallet, PDO::PARAM_INT);
+                $walletStm->execute();
+                $_SESSION['user']['wallet'] = $totalWallet;
                 $_SESSION['flash'] = 'You sold stocks for a total of $'.$total;
                 header('Location: ../stocks');
             }
@@ -164,5 +199,6 @@ class StocksController {
         return $this->stocks;
 
     }
+
 
 }

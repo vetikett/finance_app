@@ -6,8 +6,20 @@
         <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
     </head>
     <body>
+    <nav class="navbar navbar-default">
         <div class="container-fluid">
-            <h1 class="text-center">Finance App</h1>
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Lorenum</a>
+            </div>
+    </nav>
+        <div class="container-fluid">
             <form class="form-horizontal" role="form" method="POST" action="auth/login">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 

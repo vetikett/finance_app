@@ -23,10 +23,12 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="stocks">Sell Stocks<span class="sr-only">(current)</span></a></li>
+                <li class="user-name"><a><?php echo $_SESSION['user']['first_name']. " ". $_SESSION['user']['last_name'] ?></a></li>
+                <li class="wallet"><a>Wallet: $<?php echo $_SESSION['user']['wallet'] ?></a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Logout</a></li>
+                <li><a href="auth/logout">Logout</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
@@ -35,7 +37,6 @@
 
 <div class="container-fluid">
 
-    <h1 class="text-center">Finance App</h1>
     <form class="search" method="post">
         <input class="text-search" type="text" name="search_input"/>
         <input class="submit-search btn btn-primary" type="submit" name="search" value="search stock"/>

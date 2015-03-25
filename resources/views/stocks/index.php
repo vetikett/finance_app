@@ -23,10 +23,12 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="../finance_app">Buy Stocks<span class="sr-only">(current)</span></a></li>
+                <li class="user-name"><a><?php echo $_SESSION['user']['first_name']. " ". $_SESSION['user']['last_name'] ?></a></li>
+                <li class="wallet"><a>Wallet: $<?php echo $_SESSION['user']['wallet'] ?></a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li><p>Wallet: <?php echo var_dump($_SESSION['user']) ?></p></li>
+
                 <li><a href="auth/logout">Logout</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
@@ -35,7 +37,6 @@
 
 <div class="container-fluid">
 
-    <h1 class="text-center">Finance App</h1>
 
     <?php
     if( isset($_SESSION['flash']) ) {
