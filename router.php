@@ -2,6 +2,8 @@
 require_once 'vendor/autoload.php';
 use Core\BaseClasses\Route;
 
+session_start();
+
 date_default_timezone_set ("Europe/Stockholm");
 
 /* -- Define ROOT_PATH for more consistent uri handling -- */

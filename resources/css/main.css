@@ -10,7 +10,7 @@ table  {
 }
 
 .container-fluid {
-    padding: 0 60px;
+    padding: 0 2%;
 }
 .search {
     width: 500px;
@@ -55,4 +55,23 @@ table  {
 
 .first-form {
     border-bottom: 1px solid #5CB85C;
+}
+
+/* flash msg*/
+
+.flash {
+    width: 96%;
+    display: block;
+    position: absolute;
+    top: 90px;
+
+}
+
+.flash-msg {
+    font-size: 18px;
+    background-color: #5BB961;
+    position: relative;
+    color: white;
+    padding: 20px;
+    box-shadow: 4px 4px 2px black;
 }
